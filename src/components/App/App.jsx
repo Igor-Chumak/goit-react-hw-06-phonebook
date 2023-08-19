@@ -4,6 +4,7 @@ import { ThemeProvider } from 'styled-components';
 import { GlobalStyles, darkTheme, lightTheme, theme } from 'styles';
 import { useLocalStorage } from 'react-recipes';
 import { loadFromLocalStorage } from 'utilities/localStorage';
+import { INITIAL_CONTACTS } from 'data/initial';
 import {
   Header,
   Section,
@@ -14,13 +15,6 @@ import {
   Filter,
   OkButton,
 } from 'components';
-
-const INITIAL_CONTACTS = [
-  { id: 'id-1', name: 'Rosie Simpson', number: '459-12-56' },
-  { id: 'id-2', name: 'Hermine Kline', number: '443-89-12' },
-  { id: 'id-3', name: 'Eden Clements', number: '645-17-79' },
-  { id: 'id-4', name: 'Annie Copeland', number: '227-91-26' },
-];
 
 const localStorageKey = 'phonebook';
 const localStorage_contacts = loadFromLocalStorage(localStorageKey) ?? [];
