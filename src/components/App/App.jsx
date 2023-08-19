@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useSelector } from 'react-redux';
 import { nanoid } from 'nanoid';
 import { ThemeProvider } from 'styled-components';
 import { GlobalStyles, darkTheme, lightTheme, theme } from 'styles';
@@ -33,7 +34,7 @@ export const App = () => {
     initial_contacts
   );
 
-  const [filter, setFilter] = useState('');
+  const filter = useSelector(state => state.filter);
   const [notification, setNotification] = useState('');
 
   const handleToggleTheme = () => {
