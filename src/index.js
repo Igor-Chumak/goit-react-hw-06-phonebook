@@ -3,12 +3,16 @@ import ReactDOM from 'react-dom/client';
 import 'modern-normalize';
 // import { ThemeProvider } from 'styled-components';
 import { App } from 'components';
+import { Provider } from 'react-redux';
+import { store } from 'store/store';
 // import './index.css';
 // import { GlobalStyles, theme } from 'styles';
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
-    <App />
+    <Provider store={store}>
+      <App />
+    </Provider>
   </React.StrictMode>
 );
 

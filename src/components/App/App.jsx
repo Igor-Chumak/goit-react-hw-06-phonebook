@@ -18,10 +18,10 @@ import {
 
 const localStorageKey = 'phonebook';
 const localStorage_contacts = loadFromLocalStorage(localStorageKey) ?? [];
-const initial_contacts = !localStorage_contacts.length
+export const initial_contacts = !localStorage_contacts.length
   ? [...INITIAL_CONTACTS]
   : [...localStorage_contacts];
-console.log('initial_contacts :>> ', initial_contacts);
+// console.log('initial_contacts :>> ', initial_contacts);
 
 const localStorageTheme = localStorageKey + '_theme';
 
