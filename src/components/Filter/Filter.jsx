@@ -4,14 +4,13 @@ import { Clear } from 'components';
 import { setFilter } from 'store/filterSlice';
 import { FilterLabel, FilterInput } from './Filter.styled';
 
-export const Filter = ({ handleChangeInputFilter }) => {
+export const Filter = () => {
   const dispatch = useDispatch();
   const filter = useSelector(state => state.filter);
-  console.log('filter :>> ', filter);
-  const handleChangeFilter = filter => dispatch(setFilter(filter));
-  // console.log('handleChangeFilter :>> ', handleChangeFilter);
+  const handleChangeInputFilter = filter => dispatch(setFilter(filter));
+
   return (
-    <FilterLabel onClick={handleChangeInputFilter}>
+    <FilterLabel>
       Find contacts by name
       <FilterInput
         type="text"
@@ -20,32 +19,15 @@ export const Filter = ({ handleChangeInputFilter }) => {
         placeholder=""
         id="filter"
         autoFocus
-        onChange={e => handleChangeFilter(e.target.value.toLowerCase())}
+        value={filter}
+        onChange={e => handleChangeInputFilter(e.target.value.toLowerCase())}
       />
-      <Clear type="button">Clear</Clear>
+      <Clear type="button" onClick={() => handleChangeInputFilter('')}>
+        Clear
+      </Clear>
     </FilterLabel>
   );
 };
-
-// export const Filter = ({ handleChangeInputFilter }) => {
-//   return (
-//     <FilterLabel
-//       onChange={handleChangeInputFilter}
-//       onClick={handleChangeInputFilter}
-//     >
-//       Find contacts by name
-//       <FilterInput
-//         type="text"
-//         name="filter"
-//         maxLength="22"
-//         placeholder=""
-//         id="filter"
-//         autoFocus
-//       />
-//       <Clear type="button">Clear</Clear>
-//     </FilterLabel>
-//   );
-// };
 
 Filter.propTypes = {
   handleChangeInputFilter: PropTypes.func.isRequired,

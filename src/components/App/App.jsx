@@ -65,14 +65,6 @@ export const App = () => {
     );
   };
 
-  const handleChangeInputFilter = e => {
-    const inputFilter = document.getElementById('filter');
-    const { value } = e.target;
-    let valueNormalize = value.toLowerCase();
-    inputFilter.value = valueNormalize;
-    setFilter(valueNormalize);
-  };
-
   const createContactsToList = () => {
     return contacts.filter(contact =>
       contact.name.toLowerCase().includes(filter)
@@ -111,7 +103,7 @@ export const App = () => {
           )}
         </Section>
         <Section title="Contacts">
-          <Filter handleChangeInputFilter={handleChangeInputFilter} />
+          <Filter />
           <ContactList
             contactsToList={createContactsToList()}
             deleteContactsFromList={deleteContactsFromList}
