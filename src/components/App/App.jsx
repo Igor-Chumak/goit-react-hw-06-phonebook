@@ -48,15 +48,9 @@ export const App = () => {
     setNotification('');
   };
 
-  const searchContact = ({ name }) => {
-    return contacts.find(
-      contact => contact.name.toLowerCase() === name.toLowerCase()
-    );
-  };
-
-  // const createContactsToList = () => {
-  //   return contacts.filter(contact =>
-  //     contact.name.toLowerCase().includes(filter)
+  // const searchContact = ({ name }) => {
+  //   return contacts.find(
+  //     contact => contact.name.toLowerCase() === name.toLowerCase()
   //   );
   // };
 
@@ -76,7 +70,7 @@ export const App = () => {
       </Header>
       <main>
         <Section title="Phonebook">
-          <ContactForm onSubmit={onSubmit} />
+          <ContactForm setNotification={setNotification} />
           {notification && (
             <Notification message={notification}>
               <OkButton type="button" onClick={handleOkButton}>

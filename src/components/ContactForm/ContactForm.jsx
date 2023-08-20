@@ -1,5 +1,8 @@
-import { useState } from 'react';
 import PropTypes from 'prop-types';
+import { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { addContact } from 'store/contactsSlice';
+import { getContacts } from 'store/selectors';
 import {
   ContactFormForm,
   ContactFormLabel,
@@ -7,20 +10,44 @@ import {
   ContactFormSubmit,
 } from './ContactForm.styled';
 
-export const ContactForm = ({ onSubmit }) => {
+export const ContactForm = ({ setNotification }) => {
   const [name, setName] = useState('');
   const [number, setNumber] = useState('');
 
+  const dispatch = useDispatch();
+  const contacts = useSelector(getContacts);
+  // const handleChangeInputFilter = filter => dispatch(setFilter(filter));
+
+  const searchContact = name => {
+    return contacts.find(
+      contact => contact.name.toLowerCase() === name.toLowerCase()
+    );
+  };
+
   const handleSubmit = e => {
     e.preventDefault();
+    console.log('name :>> ', name);
+    console.log('number :>> ', number);
     const form = e.currentTarget;
     if (name === '' || number === '') {
+      // form.reset();
+      // setName('');
+      // setNumber('');
       return;
     }
-    if (onSubmit({ name, number })) {
+    //
+    const searchResult = searchContact(name);
+    if (!searchResult) {
+      dispatch(addContact({ name, number }));
       form.reset();
       setName('');
       setNumber('');
+      return true;
+    } else {
+      setNotification(
+        `${searchResult.name} : ${searchResult.number} is already in contacts`
+      );
+      return false;
     }
   };
 
@@ -60,5 +87,5 @@ export const ContactForm = ({ onSubmit }) => {
 };
 
 ContactForm.propTypes = {
-  onSubmit: PropTypes.func.isRequired,
+  setNotification: PropTypes.func.isRequired,
 };
