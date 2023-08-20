@@ -1,11 +1,8 @@
 import { useState } from 'react';
 import { useSelector } from 'react-redux';
-import { nanoid } from 'nanoid';
 import { ThemeProvider } from 'styled-components';
 import { GlobalStyles, darkTheme, lightTheme, theme } from 'styles';
 import { useLocalStorage } from 'react-recipes';
-import { loadFromLocalStorage } from 'utilities/localStorage';
-import { INITIAL_CONTACTS } from 'data/initial';
 import {
   Header,
   Section,
@@ -16,25 +13,16 @@ import {
   Filter,
   OkButton,
 } from 'components';
-
-const localStorageKey = 'phonebook';
-const localStorage_contacts = loadFromLocalStorage(localStorageKey) ?? [];
-export const initial_contacts = !localStorage_contacts.length
-  ? [...INITIAL_CONTACTS]
-  : [...localStorage_contacts];
-// console.log('initial_contacts :>> ', initial_contacts);
+import { getContacts } from 'store/selectors';
+import { addContact } from 'store/contactsSlice';
+import { localStorageKey } from 'store/initialization';
 
 const localStorageTheme = localStorageKey + '_theme';
 
 export const App = () => {
   const [modeTheme, setModeTheme] = useLocalStorage(localStorageTheme);
 
-  // const [contacts, setContacts] = useLocalStorage(
-  //   localStorageKey,
-  //   initial_contacts
-  // );
-  const contacts = useSelector(state => state.contacts);
-  const filter = useSelector(state => state.filter);
+  const contacts = useSelector(getContacts);
   const [notification, setNotification] = useState('');
 
   const handleToggleTheme = () => {
@@ -46,7 +34,7 @@ export const App = () => {
   const onSubmit = dataForm => {
     const searchResult = searchContact(dataForm);
     if (!searchResult) {
-      setContacts(prevState => [{ id: nanoid(), ...dataForm }, ...prevState]);
+      addContact(dataForm);
       return true;
     } else {
       setNotification(
@@ -66,17 +54,11 @@ export const App = () => {
     );
   };
 
-  const createContactsToList = () => {
-    return contactsR.filter(contact =>
-      contact.name.toLowerCase().includes(filter)
-    );
-  };
-
-  const deleteContactsFromList = idItem => {
-    return setContacts(prevValue =>
-      prevValue.filter(item => item.id !== idItem)
-    );
-  };
+  // const createContactsToList = () => {
+  //   return contacts.filter(contact =>
+  //     contact.name.toLowerCase().includes(filter)
+  //   );
+  // };
 
   return (
     <ThemeProvider
@@ -105,10 +87,7 @@ export const App = () => {
         </Section>
         <Section title="Contacts">
           <Filter />
-          <ContactList
-            contactsToList={createContactsToList()}
-            deleteContactsFromList={deleteContactsFromList}
-          />
+          <ContactList contactsToList="" />
         </Section>
       </main>
     </ThemeProvider>
