@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import { ThemeProvider } from 'styled-components';
 import { GlobalStyles, darkTheme, lightTheme, theme } from 'styles';
 import { useLocalStorage } from 'react-recipes';
@@ -10,7 +9,6 @@ import {
   ContactList,
   Notification,
   Filter,
-  OkButton,
 } from 'components';
 import { LOCAL_STORAGE_KEY } from 'store/store';
 
@@ -18,16 +16,11 @@ const localStorageTheme = LOCAL_STORAGE_KEY + '_theme';
 
 export const App = () => {
   const [modeTheme, setModeTheme] = useLocalStorage(localStorageTheme);
-  const [notification, setNotification] = useState('');
 
   const handleToggleTheme = () => {
     setModeTheme(prevModeTheme =>
       prevModeTheme === 'dark' ? 'light' : 'dark'
     );
-  };
-
-  const handleOkButton = () => {
-    setNotification('');
   };
 
   return (
@@ -46,14 +39,8 @@ export const App = () => {
       </Header>
       <main>
         <Section title="Phonebook">
-          <ContactForm setNotification={setNotification} />
-          {notification && (
-            <Notification message={notification}>
-              <OkButton type="button" onClick={handleOkButton}>
-                OK
-              </OkButton>
-            </Notification>
-          )}
+          <ContactForm />
+          <Notification />
         </Section>
         <Section title="Contacts">
           <Filter />

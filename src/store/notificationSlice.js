@@ -4,11 +4,11 @@ const notificationSlice = createSlice({
   name: 'note',
   initialState: '',
   reducers: {
-    setNote(state, action) {
+    setNotification(state, action) {
       return (state = action.payload);
     },
   },
 });
 
-export const { setNote } = notificationSlice.actions;
+export const { setNotification } = notificationSlice.actions;
 export const notificationReducer = notificationSlice.reducer;

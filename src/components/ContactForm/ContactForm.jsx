@@ -1,8 +1,8 @@
-import PropTypes from 'prop-types';
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { addContact } from 'store/contactsSlice';
 import { getContacts } from 'store/selectors';
+import { setNotification } from 'store/notificationSlice';
 import {
   ContactFormForm,
   ContactFormLabel,
@@ -10,7 +10,7 @@ import {
   ContactFormSubmit,
 } from './ContactForm.styled';
 
-export const ContactForm = ({ setNotification }) => {
+export const ContactForm = () => {
   const [name, setName] = useState('');
   const [number, setNumber] = useState('');
 
@@ -34,8 +34,10 @@ export const ContactForm = ({ setNotification }) => {
       setNumber('');
       return true;
     } else {
-      setNotification(
-        `${searchResult.name} : ${searchResult.number} is already in contacts`
+      dispatch(
+        setNotification(
+          `${searchResult.name} : ${searchResult.number} is already in contacts`
+        )
       );
       return false;
     }
@@ -76,8 +78,4 @@ export const ContactForm = ({ setNotification }) => {
       <ContactFormSubmit type="submit">Add contact</ContactFormSubmit>
     </ContactFormForm>
   );
-};
-
-ContactForm.propTypes = {
-  setNotification: PropTypes.func.isRequired,
 };

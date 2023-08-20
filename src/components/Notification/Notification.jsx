@@ -1,16 +1,21 @@
-import PropTypes from 'prop-types';
+import { useDispatch, useSelector } from 'react-redux';
+import { getNotification } from 'store/selectors';
+import { OkButton } from 'components';
+import { setNotification } from 'store/notificationSlice';
 import { Message, NotificationBox } from './Notification.styled';
 
-export const Notification = ({ children, message }) => {
-  return (
-    <NotificationBox>
-      <Message>{message}</Message>
-      {children}
-    </NotificationBox>
-  );
-};
+export const Notification = () => {
+  const dispatch = useDispatch();
+  const notification = useSelector(getNotification);
 
-Notification.propTypes = {
-  message: PropTypes.string,
-  children: PropTypes.element,
+  return (
+    notification && (
+      <NotificationBox>
+        <Message>{notification}</Message>
+        <OkButton type="button" onClick={() => dispatch(setNotification(''))}>
+          OK
+        </OkButton>
+      </NotificationBox>
+    )
+  );
 };
