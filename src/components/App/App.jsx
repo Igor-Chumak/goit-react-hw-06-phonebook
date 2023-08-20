@@ -29,11 +29,11 @@ const localStorageTheme = localStorageKey + '_theme';
 export const App = () => {
   const [modeTheme, setModeTheme] = useLocalStorage(localStorageTheme);
 
-  const [contacts, setContacts] = useLocalStorage(
-    localStorageKey,
-    initial_contacts
-  );
-
+  // const [contacts, setContacts] = useLocalStorage(
+  //   localStorageKey,
+  //   initial_contacts
+  // );
+  const contacts = useSelector(state => state.contacts);
   const filter = useSelector(state => state.filter);
   const [notification, setNotification] = useState('');
 
@@ -67,7 +67,7 @@ export const App = () => {
   };
 
   const createContactsToList = () => {
-    return contacts.filter(contact =>
+    return contactsR.filter(contact =>
       contact.name.toLowerCase().includes(filter)
     );
   };
