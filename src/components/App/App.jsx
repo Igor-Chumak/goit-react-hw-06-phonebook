@@ -1,6 +1,7 @@
+import { useSelector } from 'react-redux';
 import { ThemeProvider } from 'styled-components';
 import { GlobalStyles, darkTheme, lightTheme, theme } from 'styles';
-import { useLocalStorage } from 'react-recipes';
+import { getModeTheme } from 'store/selectors';
 import {
   Header,
   Section,
@@ -10,19 +11,9 @@ import {
   Notification,
   Filter,
 } from 'components';
-import { LOCAL_STORAGE_KEY } from 'store/store';
-
-const localStorageTheme = LOCAL_STORAGE_KEY + '_theme';
 
 export const App = () => {
-  const [modeTheme, setModeTheme] = useLocalStorage(localStorageTheme);
-
-  const handleToggleTheme = () => {
-    setModeTheme(prevModeTheme =>
-      prevModeTheme === 'dark' ? 'light' : 'dark'
-    );
-  };
-
+  const modeTheme = useSelector(getModeTheme);
   return (
     <ThemeProvider
       theme={{
@@ -32,10 +23,7 @@ export const App = () => {
     >
       <GlobalStyles />
       <Header>
-        <CreateThemeSwitcher
-          handleToggleTheme={handleToggleTheme}
-          modeTheme={modeTheme === 'dark' ? true : false}
-        />
+        <CreateThemeSwitcher />
       </Header>
       <main>
         <Section title="Phonebook">
