@@ -31,18 +31,18 @@ export const App = () => {
     );
   };
 
-  const onSubmit = dataForm => {
-    const searchResult = searchContact(dataForm);
-    if (!searchResult) {
-      addContact(dataForm);
-      return true;
-    } else {
-      setNotification(
-        `${searchResult.name} : ${searchResult.number} is already in contacts`
-      );
-      return false;
-    }
-  };
+  // const onSubmit = dataForm => {
+  //   const searchResult = searchContact(dataForm);
+  //   if (!searchResult) {
+  //     addContact(dataForm);
+  //     return true;
+  //   } else {
+  //     setNotification(
+  //       `${searchResult.name} : ${searchResult.number} is already in contacts`
+  //     );
+  //     return false;
+  //   }
+  // };
 
   const handleOkButton = () => {
     setNotification('');

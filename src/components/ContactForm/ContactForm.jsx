@@ -29,9 +29,9 @@ export const ContactForm = ({ setNotification }) => {
     console.log('number :>> ', number);
     const form = e.currentTarget;
     if (name === '' || number === '') {
-      // form.reset();
-      // setName('');
-      // setNumber('');
+      form.reset();
+      setName('');
+      setNumber('');
       return;
     }
     //
@@ -63,6 +63,7 @@ export const ContactForm = ({ setNotification }) => {
           title="Name may contain only letters, apostrophe, dash and spaces. For example Adrian, Jacob Mercer, Charles de Batz de Castelmore d'Artagnan"
           placeholder=""
           required
+          value={name}
           onChange={e => setName(e.target.value.trim())}
         />
       </ContactFormLabel>
@@ -77,6 +78,7 @@ export const ContactForm = ({ setNotification }) => {
           title="Phone number must be digits and can contain spaces, dashes, parentheses and can start with +"
           placeholder=""
           required
+          value={number}
           onChange={e => setNumber(e.target.value)}
         />
       </ContactFormLabel>
