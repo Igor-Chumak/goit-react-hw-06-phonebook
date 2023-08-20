@@ -20,7 +20,7 @@ export const LOCAL_STORAGE_KEY = 'phonebook';
 const persistConfig = {
   key: LOCAL_STORAGE_KEY,
   storage,
-  whitelist: ['contacts', 'modeTheme'],
+  whitelist: ['contacts', 'theme'],
   blacklist: [],
 };
 

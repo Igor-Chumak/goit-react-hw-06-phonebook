@@ -32,7 +32,7 @@ export const App = () => {
         </Section>
         <Section title="Contacts">
           <Filter />
-          <ContactList contactsToList="" />
+          <ContactList />
         </Section>
       </main>
     </ThemeProvider>

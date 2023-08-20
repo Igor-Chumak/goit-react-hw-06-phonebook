@@ -5,7 +5,7 @@ import { notificationReducer } from './notificationSlice';
 import { modeThemeReducer } from './themeSlice';
 
 export const reducer = combineReducers({
-  modeTheme: modeThemeReducer,
+  theme: modeThemeReducer,
   contacts: contactsReducer,
   filter: filterReducer,
   notification: notificationReducer,
