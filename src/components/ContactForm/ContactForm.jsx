@@ -25,20 +25,11 @@ export const ContactForm = ({ setNotification }) => {
 
   const handleSubmit = e => {
     e.preventDefault();
-    console.log('name :>> ', name);
-    console.log('number :>> ', number);
-    const form = e.currentTarget;
-    if (name === '' || number === '') {
-      form.reset();
-      setName('');
-      setNumber('');
-      return;
-    }
-    //
+    if (name === '' || number === '') return;
     const searchResult = searchContact(name);
     if (!searchResult) {
       dispatch(addContact({ name, number }));
-      form.reset();
+      e.currentTarget.reset();
       setName('');
       setNumber('');
       return true;
