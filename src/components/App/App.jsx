@@ -12,7 +12,7 @@ import {
   Filter,
   OkButton,
 } from 'components';
-import { LOCAL_STORAGE_KEY } from 'store/initialization';
+import { LOCAL_STORAGE_KEY } from 'store/store';
 
 const localStorageTheme = LOCAL_STORAGE_KEY + '_theme';
 

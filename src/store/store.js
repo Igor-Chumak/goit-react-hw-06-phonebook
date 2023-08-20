@@ -1,28 +1,37 @@
-import { configureStore } from '@reduxjs/toolkit';
-import { contactsReducer } from './contactsSlice';
-import { filterReducer } from './filterSlice';
-import { persistStore, persistReducer } from 'redux-persist';
-import storage from 'redux-persist/lib/storage'; // defaults to localStorage for web
-import { localStorageKey } from './initialization';
-// import rootReducer from './reducers';
+import { configureStore, getDefaultMiddleware } from '@reduxjs/toolkit';
+import {
+  persistStore,
+  persistReducer,
+  FLUSH,
+  REHYDRATE,
+  PAUSE,
+  PERSIST,
+  PURGE,
+  REGISTER,
+} from 'redux-persist';
+import storage from 'redux-persist/lib/storage';
+import { reducer } from './reducers';
+
+export const LOCAL_STORAGE_KEY = 'phonebook';
 
 const persistConfig = {
-  key: localStorageKey,
+  key: LOCAL_STORAGE_KEY,
   storage,
+  whitelist: ['contacts'],
+  blacklist: [],
 };
 
-const persistedReducer = persistReducer(persistConfig, rootReducer);
+const persistedReducer = persistReducer(persistConfig, reducer);
 
-export default () => {
-  let store = createStore(persistedReducer);
-  let persistor = persistStore(store);
-  return { store, persistor };
-};
-
-//
 export const store = configureStore({
-  reducer: {
-    contacts: contactsReducer,
-    filter: filterReducer,
+  reducer: persistedReducer,
+  middleware(getDefaultMiddleware) {
+    return getDefaultMiddleware({
+      serializableCheck: {
+        ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
+      },
+    });
   },
 });
+
+export const persistor = persistStore(store);
