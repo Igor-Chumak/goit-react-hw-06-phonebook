@@ -16,7 +16,6 @@ export const ContactForm = ({ setNotification }) => {
 
   const dispatch = useDispatch();
   const contacts = useSelector(getContacts);
-  // const handleChangeInputFilter = filter => dispatch(setFilter(filter));
 
   const searchContact = name => {
     return contacts.find(
