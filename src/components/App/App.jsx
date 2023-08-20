@@ -12,9 +12,9 @@ import {
   Filter,
   OkButton,
 } from 'components';
-import { localStorageKey } from 'store/initialization';
+import { LOCAL_STORAGE_KEY } from 'store/initialization';
 
-const localStorageTheme = localStorageKey + '_theme';
+const localStorageTheme = LOCAL_STORAGE_KEY + '_theme';
 
 export const App = () => {
   const [modeTheme, setModeTheme] = useLocalStorage(localStorageTheme);

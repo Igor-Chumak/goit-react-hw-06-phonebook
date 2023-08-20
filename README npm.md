@@ -1,5 +1,8 @@
 - npm install @reduxjs/toolkit
 - npm install @reduxjs/toolkit react-redux
+- npm install @redux-devtools/extension ??? import { devToolsEnhancer } from
+  "@redux-devtools/extension";
+- npm install redux-persist
 - npm install modern-normalize >>> import 'modern-normalize';
 - npm install--save-dev prop-types >>> import PropTypes from 'prop-types';
 - npm install styled-components >>> import styled from 'styled-components';
