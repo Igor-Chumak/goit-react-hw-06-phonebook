@@ -1,6 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { nanoid } from 'nanoid';
-// import { initial_contacts } from './initialization';
 import { INITIAL_CONTACTS } from 'data/initial';
 
 const contactsSlice = createSlice({
