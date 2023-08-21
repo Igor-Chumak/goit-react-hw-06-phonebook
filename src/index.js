@@ -1,29 +1,21 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import 'modern-normalize';
-// import { ThemeProvider } from 'styled-components';
 import { App } from 'components';
-import { Provider } from 'react-redux';
+import { Provider as ReduxProvider } from 'react-redux';
 import { persistor, store } from 'store/store';
 import { PersistGate } from 'redux-persist/integration/react';
+import DarkThemeProvider from 'components/DarkThemeProvider/DarkThemeProvider';
 // import './index.css';
-// import { GlobalStyles, theme } from 'styles';
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
-    <Provider store={store}>
+    <ReduxProvider store={store}>
       <PersistGate loading={null} persistor={persistor}>
-        <App />
+        <DarkThemeProvider>
+          <App />
+        </DarkThemeProvider>
       </PersistGate>
-    </Provider>
+    </ReduxProvider>
   </React.StrictMode>
 );
-
-// ReactDOM.createRoot(document.getElementById('root')).render(
-//   <React.StrictMode>
-//     <ThemeProvider theme={theme}>
-//       <GlobalStyles />
-//       <App isNightTheme={theme.isNightTheme} />
-//     </ThemeProvider>
-//   </React.StrictMode>
-// );

@@ -1,7 +1,3 @@
-import { useSelector } from 'react-redux';
-import { ThemeProvider } from 'styled-components';
-import { GlobalStyles, darkTheme, lightTheme, theme } from 'styles';
-import { getModeTheme } from 'store/selectors';
 import {
   Header,
   Section,
@@ -12,15 +8,8 @@ import {
 } from 'components';
 
 export const App = () => {
-  const modeTheme = useSelector(getModeTheme);
   return (
-    <ThemeProvider
-      theme={{
-        ...theme,
-        ...(modeTheme === 'dark' ? darkTheme : lightTheme),
-      }}
-    >
-      <GlobalStyles />
+    <>
       <Header>
         <CreateThemeSwitcher />
       </Header>
@@ -33,6 +22,6 @@ export const App = () => {
           <ContactList />
         </Section>
       </main>
-    </ThemeProvider>
+    </>
   );
 };
