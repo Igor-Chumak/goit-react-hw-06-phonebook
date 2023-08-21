@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { addContact } from 'store/contactsSlice';
 import { getContacts } from 'store/selectors';
-import { setNotification } from 'store/notificationSlice';
+import { Notification } from 'components';
 import {
   ContactFormForm,
   ContactFormLabel,
@@ -13,6 +13,7 @@ import {
 export const ContactForm = () => {
   const [name, setName] = useState('');
   const [number, setNumber] = useState('');
+  const [notification, setNotification] = useState('');
 
   const dispatch = useDispatch();
   const contacts = useSelector(getContacts);
@@ -34,48 +35,54 @@ export const ContactForm = () => {
       setNumber('');
       return true;
     } else {
-      dispatch(
-        setNotification(
-          `${searchResult.name} : ${searchResult.number} is already in contacts`
-        )
+      setNotification(
+        `${searchResult.name} : ${searchResult.number} is already in contacts`
       );
       return false;
     }
   };
 
   return (
-    <ContactFormForm onSubmit={handleSubmit}>
-      <ContactFormLabel>
-        Name
-        <ContactFormInput
-          type="text"
-          name="name"
-          minLength="2"
-          maxLength="22"
-          pattern="^[a-zA-Zа-яА-Я]+(([' \-][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$"
-          title="Name may contain only letters, apostrophe, dash and spaces. For example Adrian, Jacob Mercer, Charles de Batz de Castelmore d'Artagnan"
-          placeholder=""
-          required
-          value={name}
-          onChange={e => setName(e.target.value.trim())}
+    <>
+      <ContactFormForm onSubmit={handleSubmit}>
+        <ContactFormLabel>
+          Name
+          <ContactFormInput
+            type="text"
+            name="name"
+            minLength="2"
+            maxLength="22"
+            pattern="^[a-zA-Zа-яА-Я]+(([' \-][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$"
+            title="Name may contain only letters, apostrophe, dash and spaces. For example Adrian, Jacob Mercer, Charles de Batz de Castelmore d'Artagnan"
+            placeholder=""
+            required
+            value={name}
+            onChange={e => setName(e.target.value.trim())}
+          />
+        </ContactFormLabel>
+        <ContactFormLabel>
+          Number
+          <ContactFormInput
+            type="tel"
+            name="number"
+            minLength="7"
+            maxLength="17"
+            pattern="\+?\d{1,4}?[ .\-\s]?\(?\d{1,3}?\)?[ .\-\s]?\d{1,4}[ .\-\s]?\d{1,4}[ .\-\s]?\d{1,9}"
+            title="Phone number must be digits and can contain spaces, dashes, parentheses and can start with +"
+            placeholder=""
+            required
+            value={number}
+            onChange={e => setNumber(e.target.value)}
+          />
+        </ContactFormLabel>
+        <ContactFormSubmit type="submit">Add contact</ContactFormSubmit>
+      </ContactFormForm>
+      {notification && (
+        <Notification
+          setNotification={setNotification}
+          message={notification}
         />
-      </ContactFormLabel>
-      <ContactFormLabel>
-        Number
-        <ContactFormInput
-          type="tel"
-          name="number"
-          minLength="7"
-          maxLength="17"
-          pattern="\+?\d{1,4}?[ .\-\s]?\(?\d{1,3}?\)?[ .\-\s]?\d{1,4}[ .\-\s]?\d{1,4}[ .\-\s]?\d{1,9}"
-          title="Phone number must be digits and can contain spaces, dashes, parentheses and can start with +"
-          placeholder=""
-          required
-          value={number}
-          onChange={e => setNumber(e.target.value)}
-        />
-      </ContactFormLabel>
-      <ContactFormSubmit type="submit">Add contact</ContactFormSubmit>
-    </ContactFormForm>
+      )}
+    </>
   );
 };

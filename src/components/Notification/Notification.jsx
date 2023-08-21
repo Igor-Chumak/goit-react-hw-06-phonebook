@@ -1,21 +1,19 @@
-import { useDispatch, useSelector } from 'react-redux';
-import { getNotification } from 'store/selectors';
+import PropTypes from 'prop-types';
 import { OkButton } from 'components';
-import { setNotification } from 'store/notificationSlice';
 import { Message, NotificationBox } from './Notification.styled';
 
-export const Notification = () => {
-  const dispatch = useDispatch();
-  const notification = useSelector(getNotification);
-
+export const Notification = ({ message, setNotification }) => {
   return (
-    notification && (
-      <NotificationBox>
-        <Message>{notification}</Message>
-        <OkButton type="button" onClick={() => dispatch(setNotification(''))}>
-          OK
-        </OkButton>
-      </NotificationBox>
-    )
+    <NotificationBox>
+      <Message>{message}</Message>
+      <OkButton type="button" onClick={() => setNotification('')}>
+        OK
+      </OkButton>
+    </NotificationBox>
   );
+};
+
+Notification.propTypes = {
+  message: PropTypes.string,
+  setNotification: PropTypes.func.isRequired,
 };

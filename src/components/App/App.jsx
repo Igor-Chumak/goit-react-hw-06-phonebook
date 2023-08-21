@@ -8,7 +8,6 @@ import {
   CreateThemeSwitcher,
   ContactForm,
   ContactList,
-  Notification,
   Filter,
 } from 'components';
 
@@ -28,7 +27,6 @@ export const App = () => {
       <main>
         <Section title="Phonebook">
           <ContactForm />
-          <Notification />
         </Section>
         <Section title="Contacts">
           <Filter />
